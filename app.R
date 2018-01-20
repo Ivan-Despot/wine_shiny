@@ -1,3 +1,5 @@
+# Ivan Despot
+# Jan 2018
 #
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
