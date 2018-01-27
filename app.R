@@ -45,7 +45,8 @@ ui <- dashboardPage(skin = "red",
       
       selectInput("countryInput", "Country Selector",
                   choices = sort(unique(as.character(dat$country))),
-                  selected = "Canada"),
+                  selected = "Canada",
+                  multiple = T),
       
       pickerInput("pickerInput2", "Variety Selector",
                   choices = sort(unique(as.character(dat$variety))),
@@ -175,7 +176,7 @@ ui <- dashboardPage(skin = "red",
 server <- function(input, output) {
   
   output$selected_var <- renderText({
-    paste0("You have selected ", input$countryInput, ".")
+    paste0(input$countryInput, ",")
     
   })
 
@@ -194,7 +195,7 @@ server <- function(input, output) {
              filter(country %in% input$countryInput,
                     variety %in% input$pickerInput2,
                     price >= min(input$priceInput) & price <= max(input$priceInput))) +
-      geom_density(aes_string(x = input$var_plot, colour = "x", fill = "x"), alpha = input$alphaInput, size = input$sizeInput) + 
+      geom_density(aes_string(x = input$var_plot, colour = "country", fill = "country"), alpha = input$alphaInput, size = input$sizeInput) + 
       
       labs(title = "Distribution of Price and Score - Density Plot",
            x = x_axis_label,
@@ -222,7 +223,7 @@ server <- function(input, output) {
              filter(country %in% input$countryInput,
                     variety %in% input$pickerInput2,
                     price >= min(input$priceInput) & price <= max(input$priceInput))) +
-      geom_point(aes_string(x = input$var_plot, y = input$var_plot_y, colour = "x", fill = "x"), alpha = input$alphaInput2, size = input$sizeInput2) + 
+      geom_point(aes_string(x = input$var_plot, y = input$var_plot_y, colour = "country", fill = "country"), alpha = input$alphaInput2, size = input$sizeInput2) + 
       
       labs(title = "Spread of Price and Score - Scatterplot",
            x = x_axis_label,
