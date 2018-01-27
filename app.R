@@ -56,9 +56,9 @@ ui <- dashboardPage(skin = "red",
                   selected = "Pinot Noir"),
       
       # Dashboard menu item names
-      menuItem("Exploration", tabName = "exploration", icon = icon("search")),
-      
       menuItem("Rankings", tabName = "rankings", icon = icon("thumbs-up")),
+      
+      menuItem("Exploration", tabName = "exploration", icon = icon("search")),
       
       menuItem("Resources", tabName = "resources", icon = icon("link"))
       
@@ -68,6 +68,16 @@ ui <- dashboardPage(skin = "red",
   ), 
   # Features under each unique tab name
   dashboardBody(tabItems(
+    
+    tabItem(tabName = "rankings", h2("The Best Wine"),
+            infoBoxOutput("bestval"),
+            infoBoxOutput("bestvalinfo"),
+            infoBoxOutput("worstval"),
+           
+            
+            dataTableOutput("df_table")),
+            
+            
     tabItem(tabName = "exploration", h2("Explore the World of Wine!"),
             
             
@@ -91,13 +101,7 @@ ui <- dashboardPage(skin = "red",
               ),
               
               # Radio buttons to select variables of interest
-              radioButtons("var_plot", "X-axis Variable:",
-                           choices = c("Score" = "points", "Price" = "price"),
-                           selected = "points"),
               
-              radioButtons("var_plot_y", "Y-axis Variable:",
-                           choices = c("Score" = "points", "Price" = "price"),
-                           selected = "price"),
               
               circle = T,
               status = "danger",
@@ -130,6 +134,15 @@ ui <- dashboardPage(skin = "red",
                            value = 2,
                            step = 0.25
               ),
+              
+              radioButtons("var_plot", "X-axis Variable:",
+                           choices = c("Score" = "points", "Price" = "price"),
+                           selected = "points"),
+              
+              radioButtons("var_plot_y", "Y-axis Variable:",
+                           choices = c("Score" = "points", "Price" = "price"),
+                           selected = "price"),
+              
               circle = T,
               status = "danger",
               icon = icon("gear"),
@@ -141,18 +154,7 @@ ui <- dashboardPage(skin = "red",
             verbatimTextOutput("hover_info")
             
             
-            ),
-            
-    
-    tabItem(tabName = "rankings", h2("The Best Wine"),
-            infoBoxOutput("bestval"),
-            infoBoxOutput("bestvalinfo"),
-            infoBoxOutput("worstval"),
-           
-            
-            dataTableOutput("df_table")),
-            
-            
+    ),
     
     tabItem(tabName = "resources", h2("Resources"),
             uiOutput("kaggle"),
