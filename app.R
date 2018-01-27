@@ -44,11 +44,11 @@ ui <- dashboardPage(skin = "red",
                   ticks = F),
       
       selectInput("countryInput", "Country Selector",
-                  choices = unique(as.character(dat$country)),
+                  choices = sort(unique(as.character(dat$country))),
                   selected = "Canada"),
       
       pickerInput("pickerInput2", "Variety Selector",
-                  choices = unique(as.character(dat$variety)),
+                  choices = sort(unique(as.character(dat$variety))),
                   options = list("actions-box" = T,
                                  size = 10,
                                  "selected-text-format" = 'count > 5'),
